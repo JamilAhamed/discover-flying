@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content container">
+        <div class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)<h5 id="firstClassTicket-total">$150</h5></label>
+                    <input id="firstClassTicket-count" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                  <p> <span onclick="handleAirTicketing('firstClassTicket',true)">+</span> <span onclick="handleAirTicketing('firstClassTicket',false)">-</span> </p>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)
+                    <h5 id="economicClassTicket-total">$100</h5></label>
+                    <input id="economicClassTicket-count" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span onclick="handleAirTicketing('economicClassTicket',true)">+</span> <span onclick="handleAirTicketing('economicClassTicket',false)">-</span> </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="totalTicket-price">$500</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="vat-amount">$50</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-total">$550</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-style">Book Now</button>
+        </div>
+
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+        </div>
+    </section>
+
+<script>
+        function handleAirTicketing(airTicket, isPlus) {
+        const ticketCount = getTicketValue(airTicket);
+
+        let ticketNewCount = ticketCount;
+        if (isPlus == true) {
+          ticketNewCount = ticketCount + 1;
+        }
+        if (isPlus == false && ticketCount > 0) {
+          ticketNewCount = ticketCount - 1;
+        }
+
+        document.getElementById(airTicket + '-count').value = ticketNewCount;
+        let ticketTotal = 0;
+        if(airTicket =='firstClassTicket'){
+            ticketTotal = ticketNewCount * 150;
+        }
+        if (airTicket =='economicClassTicket'){
+            ticketTotal = ticketNewCount * 100;
+        }
+        document.getElementById(airTicket + '-total').innerText =
+          "$" + ticketTotal;
+          calculateTotalTicket();
+      }
+
+      function calculateTotalTicket(){
+       
+        const firstClassTicketCount = getTicketValue('firstClassTicket')
+        const economyClassTicketCount = getTicketValue('economicClassTicket');
+
+        const totalTicketPrice = firstClassTicketCount * 150 + economyClassTicketCount * 100;
+        document.getElementById('totalTicket-price').innerText = '$' + totalTicketPrice;
+
+        vat = totalTicketPrice * 0.1;
+        document.getElementById('vat-amount').innerText = '$' + vat;
+
+        const grandTotal = totalTicketPrice + vat;
+        document.getElementById('grand-total').innerText = '$' + grandTotal;
+      }
+
+      function getTicketValue(airTicket){
+        console.log(airTicket);
+        const TicketInput = document.getElementById(airTicket + '-count');
+        const totalTicketCount = parseInt(TicketInput.value);
+        return totalTicketCount;
+      }
+</script>
+</body>
+</html>
